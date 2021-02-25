@@ -63,6 +63,22 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .classed("axis", true)
     .attr("transform", "translate(0, " + chartHeight + ")")
     .call(bottomAxis);
+
+  // Give x-axis label
+    chartGroup.append("text")
+    .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top - 15})`)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "16px")
+    .text("Average Income ($)");
+
+  // Give y-axis label
+  chartGroup.append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", -margin.left/2)
+  .attr("x", -chartHeight/2)
+  .attr("text-anchor", "middle")
+  .attr("font-size", "16px")
+  .text("Obesity (% of Population)");
   
     
 
