@@ -81,9 +81,6 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .text("Obesity (% of Population)");
 
   // START MAKING CIRCLES
-  // make var for state abbreviations
-  // var states = healthData.map(data => data.abbr);
-  // console.log(states);
 
   // make circles group
   var circlesGroup = chartGroup.selectAll("circle")
