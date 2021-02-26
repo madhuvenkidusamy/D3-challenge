@@ -40,7 +40,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
 
   // Configure a linear scale for x and y axes
   var xLinearScale = d3.scaleLinear()
-  .domain([0, d3.max(healthData, data => data.income)])
+  .domain([d3.min(healthData, data => data.income)-1000, d3.max(healthData, data => data.income)])
   .range([0, chartWidth]);
 
   var yLinearScale = d3.scaleLinear()
@@ -109,6 +109,25 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     
   // END MAKING CIRCLES
   
+
+  // ADD TOOLTIPS
+  // Step 1: Create tooltip class
+  var toolTip = d3.tip()
+    .attr('class', 'd3-tip')
+    .html(function(d) { 
+      return (`${d.state}<br>Average Income: $${d.income}<br>Obesity: ${d.obesity}%`)
+    }); 
+
+  chartGroup.call(toolTip);
+  
+  // Create "mouseover" event listener to display tooltip
+  textGroup.on("mouseover", function(data) {
+      toolTip.show(data, this);
+    })
+      // Add an onmouseout event to make the tooltip invisible
+      .on("mouseout", function(data, index) {
+        toolTip.hide(data);
+      });
     
 
 }).catch(function(error) {
