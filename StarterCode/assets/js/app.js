@@ -65,7 +65,7 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .call(bottomAxis);
 
   // Give x-axis label
-    chartGroup.append("text")
+  chartGroup.append("text")
     .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top - 15})`)
     .attr("text-anchor", "middle")
     .attr("font-size", "16px")
@@ -73,12 +73,41 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
 
   // Give y-axis label
   chartGroup.append("text")
-  .attr("transform", "rotate(-90)")
-  .attr("y", -margin.left/2)
-  .attr("x", -chartHeight/2)
-  .attr("text-anchor", "middle")
-  .attr("font-size", "16px")
-  .text("Obesity (% of Population)");
+    .attr("transform", "rotate(-90)")
+    .attr("y", -margin.left/2)
+    .attr("x", -chartHeight/2)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "16px")
+    .text("Obesity (% of Population)");
+
+  // START MAKING CIRCLES
+  // make var for state abbreviations
+  // var states = healthData.map(data => data.abbr);
+  // console.log(states);
+
+  // make circles group
+  var circlesGroup = chartGroup.selectAll("circle")
+    .data(healthData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d.income))
+    .attr("cy", d => yLinearScale(d.obesity))
+    .attr("r", "10")
+    .attr("fill", "purple")
+    .attr("opacity", ".4");
+
+  // add labels inside circles
+  var textGroup = chartGroup.selectAll("none")
+    .data(healthData)
+    .enter()
+    .append("text")
+    .text(d => d.abbr)
+    .attr("fill", "white")
+    .attr("font-size", "10px")
+    .attr("x", d => xLinearScale(d.income)-7)
+    .attr("y", d => yLinearScale(d.obesity)+5);
+    
+  // END MAKING CIRCLES
   
     
 
